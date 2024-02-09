@@ -14,16 +14,9 @@ def transformation_data(data):
   data_harry_potter.set_index('house', inplace=True)  # Aquí crearé un índice por "casa"
   data_harry_potter.sort_values(by='house', ascending=False, inplace=True)  # Lo ordenaré de manera descendente
 
-  print(data_harry_potter)
   return data_harry_potter
 
 
 def load_data_to_csv(data):
-  columns = list(data[0].keys())
-
-  with open('datos_harry_potter.csv', 'w', newline='') as archivo:
-    writer_csv = csv.DictWriter(archivo, fieldnames=columns)
-    writer_csv.writeheader()
-    writer_csv.writerows(data)
-
+  data.to_csv('datos_harry_potter.csv', index=True)
   print('Se ha creado el archivo CSV correctamente')
