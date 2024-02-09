@@ -1,3 +1,5 @@
+import csv
+
 import requests
 
 
@@ -23,3 +25,13 @@ def transformation_data(data):
 
   return data_harry_potter
 
+
+def load_data_to_csv(data):
+  columns = list(data[0].keys())
+
+  with open('datos_harry_potter.csv', 'w', newline='') as archivo:
+    writer_csv = csv.DictWriter(archivo, fieldnames=columns)
+    writer_csv.writeheader()
+    writer_csv.writerows(data)
+
+  print('Se ha creado el archivo CSV correctamente')
