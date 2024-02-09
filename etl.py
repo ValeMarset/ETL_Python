@@ -1,5 +1,3 @@
-import csv
-import requests
 import pandas as pd
 
 
@@ -10,7 +8,7 @@ def extraction_data_from_api(url_api):
 
 def transformation_data(data):
 
-  data_harry_potter = data[['actor', 'alternate_names', 'dateOfBirth', 'gender', 'house', 'name']].copy()
+  data_harry_potter = data[['actor', 'alternate_names', 'dateOfBirth', 'gender', 'house', 'name']].copy()  # Copia del DataFrame sin afectar el original
   data_harry_potter.set_index('house', inplace=True)  # Aquí crearé un índice por "casa"
   data_harry_potter.sort_values(by='house', ascending=False, inplace=True)  # Lo ordenaré de manera descendente
 
