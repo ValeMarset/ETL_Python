@@ -5,19 +5,16 @@ import pandas as pd
 
 def extraction_data_from_api(url_api):
   data = pd.read_json(url_api)
-  print(data)
   return data
 
 
 def transformation_data(data):
-  reduced_data = [{k: v for k, v in d.items() if k in ['actor', 'alternate_names', 'dateOfBirth', 'gender', 'house', 'name']} for d in data]
 
-  data_harry_potter = pd.DataFrame(reduced_data)
+  data_harry_potter = data[['actor', 'alternate_names', 'dateOfBirth', 'gender', 'house', 'name']].copy()
+  data_harry_potter.set_index('house', inplace=True)  # Aquí crearé un índice por "casa"
+  data_harry_potter.sort_values(by='house', ascending=False, inplace=True)  # Lo ordenaré de manera descendente
 
-  #Aquí crearé un índice por "casa" y lo ordenaré de manera ascendente
-  data_harry_potter.set_index('house', inplace=True)
-  data_harry_potter.sort_values(by='house', inplace=True)
-
+  print(data_harry_potter)
   return data_harry_potter
 
 
