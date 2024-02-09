@@ -1,6 +1,6 @@
 import csv
-
 import requests
+import pandas as pd
 
 
 def extraction_data_from_api(url_api):
@@ -10,19 +10,15 @@ def extraction_data_from_api(url_api):
 
 
 def transformation_data(data):
-  data_harry_potter = []
+  reduced_data = [{k: v for k, v in d.items() if k in ['actor', 'alternate_names', 'dateOfBirth', 'gender', 'house', 'name']} for d in data]
 
-  for data_character in data:
-    data_character = {
-      'actor': data_character['actor'],
-      'nombres_alternativos': data_character['alternate_names'],
-      'cumpleaños': data_character['dateOfBirth'],
-      'genero': data_character['gender'],
-      'casa': data_character['house'],
-      'nombre': data_character['name']
-    }
-    data_harry_potter.append(data_character)
+  data_harry_potter = pd.DataFrame(reduced_data)
 
+  #Aquí crearé un índice por "casa" y lo ordenaré de manera ascendente
+  data_harry_potter.set_index('house', inplace=True)
+  data_harry_potter.sort_values(by='house', inplace=True)
+
+  print(data_harry_potter)
   return data_harry_potter
 
 
