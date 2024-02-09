@@ -4,8 +4,8 @@ import pandas as pd
 
 
 def extraction_data_from_api(url_api):
-  r = requests.get(url_api)
-  data = r.json()
+  data = pd.read_json(url_api)
+  print(data)
   return data
 
 
@@ -18,7 +18,6 @@ def transformation_data(data):
   data_harry_potter.set_index('house', inplace=True)
   data_harry_potter.sort_values(by='house', inplace=True)
 
-  print(data_harry_potter)
   return data_harry_potter
 
 
